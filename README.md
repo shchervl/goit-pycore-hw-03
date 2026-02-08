@@ -2,15 +2,6 @@
 
 Python date manipulation project with comprehensive test coverage.
 
-## 📋 Features
-
-- `get_days_from_today()` - Calculate days between a given date and today
-- 100% test coverage with 99 comprehensive tests
-- Dynamic date calculations (no hardcoded dates)
-- Leap year validation
-- Boundary value testing
-- Negative scenario testing
-
 ## 🚀 Quick Start
 
 ### Prerequisites
