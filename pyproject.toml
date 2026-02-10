@@ -16,7 +16,7 @@ dev = [
 ]
 
 [tool.setuptools]
-py-modules = ["task_1", "task_2", "task_3"]
+py-modules = ["task_1", "task_2", "task_3", "task_4"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

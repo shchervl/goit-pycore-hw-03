@@ -1,6 +1,6 @@
 # GoIT Python Core - Homework 03
 
-Python date manipulation project with comprehensive test coverage.
+Python homework project with comprehensive test coverage and best practices.
 
 ## 🚀 Quick Start
 
@@ -63,19 +63,16 @@ pytest
 pytest -v
 
 # Run with coverage report
-pytest --cov=task_1 --cov-report=term-missing
-
-# Run with coverage and show only missing lines
-pytest --cov=task_1 --cov-report=term-missing:skip-covered
+pytest --cov=. --cov-report=term-missing
 
 # Run specific test file
-pytest tests/test_task_1.py
+pytest tests/test_task_X.py -v
 
 # Run specific test class
-pytest tests/test_task_1.py::TestGetDaysFromToday -v
+pytest tests/test_task_X.py::TestClassName -v
 
-# Run specific test
-pytest tests/test_task_1.py::TestGetDaysFromToday::test_leap_year_feb_29_future -v
+# Run specific test method
+pytest tests/test_task_X.py::TestClassName::test_method_name -v
 ```
 
 ## 📁 Project Structure
@@ -83,85 +80,125 @@ pytest tests/test_task_1.py::TestGetDaysFromToday::test_leap_year_feb_29_future 
 ```
 goit-pycore-hw-03/
 ├── .venv/                     # Virtual environment (created after setup)
-├── task_1.py                  # Main function implementation
+├── task_1.py                  # Task 1: Function implementation
+├── task_2.py                  # Task 2: Function implementation
+├── task_3.py                  # Task 3: Function implementation
 ├── tests/
 │   ├── __init__.py           # Test package marker
-│   └── test_task_1.py        # Comprehensive test suite (99 tests)
+│   ├── test_task_1.py        # Test suite for task_1
+│   ├── test_task_2.py        # Test suite for task_2
+│   └── test_task_3.py        # Test suite for task_3
 ├── pyproject.toml            # Project configuration and dependencies
 ├── README.md                 # This file
 └── .gitignore               # Git ignore file
 ```
 
-## 🧩 Test Coverage
+## 🛠️ Development Guidelines
 
-The test suite includes:
+### Where to Place Task Functions
 
-- ✅ **Equivalence Classes**: Valid/invalid inputs
-- ✅ **Boundary Values**: Today, ±1 day, month/year boundaries
-- ✅ **Leap Year Validation**: Past and future leap years (2024, 2028, 2032, etc.)
-- ✅ **Invalid Types**: None, int, float, list, dict, datetime objects
-- ✅ **Invalid Formats**: DD-MM-YYYY, MM/DD/YYYY, text dates, etc.
-- ✅ **Invalid Dates**: Feb 30, April 31, invalid leap years
-- ✅ **Edge Cases**: Very far dates, timezones, microseconds
+Each task should be implemented in its own file:
+- `task_1.py`, `task_2.py`, `task_3.py`, etc.
+- Place the main function(s) for each task in the corresponding file
+- Each task file should be a standalone module at the project root
+
+### Where to Place Tests
+
+- All tests go in the `tests/` directory
+- Name test files as `test_task_X.py` to match the task file
+- Use descriptive test class and method names
+- Group related tests in test classes (e.g., `TestFunctionName`)
+
+### Function Naming Convention
+
+- Use descriptive, snake_case function names
+- Add type hints for parameters and return values
+- Include comprehensive docstrings with Args, Returns, and Validation sections
+
+## 🧪 Testing Best Practices
+
+This project follows comprehensive testing principles:
+
+- ✅ **Equivalence Classes**: Valid/invalid input partitioning
+- ✅ **Boundary Values**: Edge cases and limits
+- ✅ **Negative Scenarios**: Invalid types, formats, and values
 - ✅ **Parametrized Tests**: Efficient testing of multiple scenarios
+- ✅ **Dynamic Testing**: No hardcoded test data, use dynamic calculations
 
-**Total: 99 tests with 100% code coverage**
+### Test Structure
 
-## 📝 Usage Example
+- Each task file (`task_X.py`) has a corresponding test file (`test_task_X.py`)
+- Tests are organized into classes by functionality
+- Aim for 100% code coverage
+- Use descriptive test names that explain what is being tested
 
-```python
-from task_1 import get_days_from_today
+## 🔧 Development Workflow
 
-# Get days from today to a specific date
-days = get_days_from_today("2026-12-31")
-print(f"Days until end of 2026: {days}")
+### Adding a New Task
 
-# Past date (returns negative number)
-days = get_days_from_today("2024-01-01")
-print(f"Days since Jan 1, 2024: {days}")
+1. Create a new task file at project root: `task_X.py`
+2. Implement your function with:
+   - Type hints for all parameters and return values
+   - Comprehensive docstring (description, Args, Returns, Validation)
+   - Proper input validation
+   - Error handling (return `None` or empty values for invalid inputs)
 
-# Today (returns 0)
-from datetime import datetime
-today = datetime.now().date().isoformat()
-days = get_days_from_today(today)
-print(f"Days from today: {days}")  # 0
+3. Create corresponding test file: `tests/test_task_X.py`
+4. Add `task_X` to `py-modules` list in `pyproject.toml`
 
-# Invalid input (returns None)
-days = get_days_from_today("invalid-date")
-print(f"Invalid date: {days}")  # None
-```
+### Writing Tests
 
-## 🛠️ Development
-
-### Adding New Tests
-
-1. Open `tests/test_task_1.py`
-2. Add your test method to the appropriate test class
-3. Run tests to verify: `pytest -v`
+1. Open or create the test file in `tests/` directory
+2. Create test class(es) for your function(s)
+3. Write tests covering:
+   - Valid inputs (equivalence classes)
+   - Boundary values
+   - Invalid types
+   - Invalid values
+   - Edge cases
+4. Run tests: `pytest -v`
+5. Check coverage: `pytest --cov=task_X --cov-report=term-missing`
 
 ### Checking Code Coverage
 
 ```bash
-# Generate coverage report
-pytest --cov=task_1 --cov-report=html
+# Generate coverage report for all tasks
+pytest --cov=. --cov-report=html
+
+# Generate coverage report for specific task
+pytest --cov=task_X --cov-report=html
 
 # Open coverage report in browser
 open htmlcov/index.html  # macOS
-# or
 start htmlcov/index.html  # Windows
-# or
 xdg-open htmlcov/index.html  # Linux
 ```
 
-## 🤝 Contributing
+## 🤝 Development Best Practices
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Run tests: `pytest`
-5. Commit your changes: `git commit -m "Add feature"`
-6. Push to the branch: `git push origin feature-name`
-7. Submit a pull request
+### Code Quality
+
+- Use type hints for all function parameters and return values
+- Write comprehensive docstrings following Google/NumPy style
+- Validate all inputs and handle errors gracefully
+- Keep functions focused (single responsibility principle)
+
+### Testing
+
+- Aim for 100% code coverage
+- Test all equivalence classes (valid and invalid inputs)
+- Test boundary values and edge cases
+- Use parametrized tests for similar test cases
+- Write descriptive test names that explain what is tested
+
+### Git Workflow
+
+1. Create a feature branch: `git checkout -b task-X`
+2. Implement the function and tests
+3. Run all tests: `pytest -v`
+4. Check coverage: `pytest --cov=. --cov-report=term-missing`
+5. Commit with descriptive message: `git commit -m "Add task X: description"`
+6. Push changes: `git push origin task-X`
 
 ## 📜 License
 
@@ -169,12 +206,17 @@ This project is part of the GoIT Python Core course.
 
 ## 🆘 Troubleshooting
 
-### Import Error: No module named 'task_1'
+### Import Error: No module named 'task_X'
 
 Make sure you're running pytest from the project root directory:
 ```bash
 cd goit-pycore-hw-03
 pytest tests/
+```
+
+Or install the package in editable mode:
+```bash
+pip install -e .
 ```
 
 ### Virtual Environment Not Activated
