@@ -8,14 +8,8 @@ Test Coverage:
 - Country code handling
 """
 
-import sys
-from pathlib import Path
-
-# Add parent directory to path to import task_03
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 import pytest
-from task_3 import normalize_phone
+from tasks.task_3 import normalize_phone
 
 
 class TestNormalizePhone:

@@ -8,13 +8,7 @@ Test Coverage:
 - Randomness validation
 """
 
-import sys
-from pathlib import Path
-
-# Add parent directory to path to import task_2
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from task_2 import get_numbers_ticket
+from tasks.task_2 import get_numbers_ticket
 
 
 class TestGetNumbersTicket:

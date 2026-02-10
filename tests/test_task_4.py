@@ -9,15 +9,10 @@ Test Coverage:
 - Edge cases (leap years, empty lists, multiple users)
 """
 
-import sys
-from pathlib import Path
 from datetime import datetime, timedelta
 
-# Add parent directory to path to import task_4
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 import pytest
-from task_4 import get_upcoming_birthdays, _validate_value
+from tasks.task_4 import get_upcoming_birthdays, _validate_value
 
 
 class TestGetUpcomingBirthdays:
@@ -599,7 +594,7 @@ class TestLeapYearEdgeCases:
         from unittest.mock import patch
         from datetime import date
 
-        with patch('task_4.datetime') as mock_datetime:
+        with patch('tasks.task_4.datetime') as mock_datetime:
             # Mock current date to Feb 24, 2024 (leap year, Feb 29 is 5 days away)
             mock_datetime.today.return_value.date.return_value = date(2024, 2, 24)
             mock_datetime.strptime = datetime.strptime
@@ -620,7 +615,7 @@ class TestLeapYearEdgeCases:
         from unittest.mock import patch
         from datetime import date
 
-        with patch('task_4.datetime') as mock_datetime:
+        with patch('tasks.task_4.datetime') as mock_datetime:
             # Feb 29, 2020 was a Saturday
             # Mock current date to Feb 24, 2020 (5 days before)
             mock_datetime.today.return_value.date.return_value = date(2020, 2, 24)
@@ -642,7 +637,7 @@ class TestLeapYearEdgeCases:
         from unittest.mock import patch
         from datetime import date
 
-        with patch('task_4.datetime') as mock_datetime:
+        with patch('tasks.task_4.datetime') as mock_datetime:
             # Mock current date to Feb 25, 2025 (non-leap year)
             # March 1, 2025 is 4 days away, but it's a Saturday
             mock_datetime.today.return_value.date.return_value = date(2025, 2, 25)

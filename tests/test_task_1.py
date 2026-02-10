@@ -11,7 +11,7 @@ Test Coverage:
 import pytest
 from datetime import datetime, timedelta
 
-from task_1 import get_days_from_today
+from tasks.task_1 import get_days_from_today
 
 
 class TestGetDaysFromToday:
