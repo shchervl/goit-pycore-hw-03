@@ -55,33 +55,24 @@ def normalize_phone(phone_number: str, country_code: int = 38) -> Optional[str]:
     # Convert country_code to string for string operations
     country_code_str = str(country_code)
 
-    # Strip whitespace
+    # Strip whitespace and extract only digits
     phone = phone_number.strip()
-
-    # Validate non-empty
     if not phone:
         print("Error: phone_number cannot be empty or whitespace-only.")
         return None
 
-    # Add '+' prefix if not present
-    if not phone.startswith("+"):
-        phone = "+" + phone
-
-    # Ensure country code is present
-    # If phone doesn't start with the correct country code, replace/add it
-    if not phone.startswith("+" + country_code_str):
-        phone = "+" + country_code_str + phone[1:]
-
-    # Remove ALL non-digit characters (including all '+' signs)
+    # Extract all digits from the phone number
     digits_only = re.sub(r"\D", "", phone)
 
-    # Validate minimum length (country code + typical phone number)
-    # Typical phone number has at least 10 digits, plus country code
-    if len(digits_only) < len(country_code_str) + 9:  # country code + at least 9 digits
-        print(f"Error: Phone number too short. Expected at least {len(country_code_str) + 9} digits after '+', got {len(digits_only)}.")
+    # Ensure country code is at the start
+    if not digits_only.startswith(country_code_str):
+        digits_only = country_code_str + digits_only
+
+    # Validate minimum length (country code + at least 9 digits)
+    min_length = len(country_code_str) + 9
+    if len(digits_only) < min_length:
+        print(f"Error: Phone number too short. Expected at least {min_length} digits, got {len(digits_only)}.")
         return None
 
-    # Add single '+' prefix to the digits
-    normalized = "+" + digits_only
-
-    return normalized
+    # Return normalized number with '+' prefix
+    return "+" + digits_only
