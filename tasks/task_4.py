@@ -134,6 +134,14 @@ def get_upcoming_birthdays(users: List[Dict[str, str]]) -> List[Dict[str, str]]:
             # Handle Feb 29 in non-leap years - move to March 1
             birthday_this_year = date(today.year, 3, 1)
 
+        # If birthday already passed this year, use next year
+        if birthday_this_year < today:
+            try:
+                birthday_this_year = birthday.replace(year=today.year + 1)
+            except ValueError:
+                # Handle Feb 29 in non-leap years for next year - move to March 1
+                birthday_this_year = date(today.year + 1, 3, 1)
+
         # Calculate days until birthday
         days_until_birthday = (birthday_this_year - today).days
 

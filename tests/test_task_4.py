@@ -653,3 +653,33 @@ class TestLeapYearEdgeCases:
             assert len(result) == 1
             assert result[0]['name'] == "Leap Day Baby"
             assert result[0]['congratulation_date'] == "2025.03.03"
+
+    def test_year_boundary_jan_1_birthday(self):
+        """Birthday on Jan 1 should be included when current date is Dec 30."""
+        from unittest.mock import patch
+        from datetime import date
+
+        with patch('tasks.task_4.datetime') as mock_datetime:
+            # Mock current date to Dec 30, 2025
+            # Jan 1, 2026 is 2 days away
+            mock_datetime.today.return_value.date.return_value = date(2025, 12, 30)
+            mock_datetime.strptime = datetime.strptime
+
+            users = [
+                {"name": "New Year Baby1", "birthday": "2000.01.01"},
+                {"name": "New Year Baby2", "birthday": "2000.01.02"},
+                {"name": "New Year Baby3", "birthday": "2000.01.03"},
+                {"name": "New Year Baby4", "birthday": "2000.01.04"},
+                {"name": "New Year Baby5", "birthday": "2000.01.05"},
+            ]
+
+            result = get_upcoming_birthdays(users)
+
+            # Jan 1, 2026 is within 7 days (2 days away)
+            assert len(result) == 5
+            assert result[0]['congratulation_date'] == "2026.01.01"
+            assert result[1]['congratulation_date'] == "2026.01.02"
+            # Next Monday
+            assert result[2]['congratulation_date'] == "2026.01.05"
+            assert result[3]['congratulation_date'] == "2026.01.05"
+            assert result[4]['congratulation_date'] == "2026.01.05"
